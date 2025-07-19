@@ -6,16 +6,15 @@ const app = express();
 const prisma = new PrismaClient();
 app.use(bodyParser.json());
 
-// Define Contact type from Prisma Client
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 type Contact = Awaited<ReturnType<typeof prisma.contact.findFirst>>;
 
-// Type guard to assert Contact is not null
+
 function isContact(contact: Contact): contact is NonNullable<Contact> {
     return contact !== null;
 }
 
-// Endpoint /identify
+
 app.post('/identify', async (req, res) => {
     const { email, phoneNumber } = req.body;
 
@@ -98,10 +97,4 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-// Postman Test Example:
-// POST http://localhost:3000/identify
-// Body:
-// {
-//     "email": "john@example.com",
-//     "phoneNumber": "1234567890"
-// }
+
